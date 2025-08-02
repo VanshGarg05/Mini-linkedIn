@@ -76,6 +76,13 @@ The application will be available at `http://localhost:3000`
 4. **View Feed**: See all posts from users in the home feed
 5. **View Profiles**: Click on user names to view their profiles and posts
 
+## Demo User
+
+You can try out the platform using the following demo credentials:
+
+- ✉️ **Email**: user@gmail.com
+- 🔑 **Password**: user@123
+
 ## API Endpoints
 
 - `POST /api/auth/register` - Register new user
