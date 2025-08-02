@@ -11,10 +11,19 @@ A modern, full-stack LinkedIn-like community platform built with Next.js, MongoD
 - 🎨 **Modern UI** - Clean, responsive design with Tailwind CSS
 - 🔒 **Secure** - JWT-based authentication and password hashing
 
+## Additional Features
+
+- ✏️ **Update Posts** - Edit your previously created posts  
+- 🗑️ **Delete Posts** - Remove your own posts  
+- ❤️ **Like Posts** - Like and unlike posts  
+- 💬 **Comment on Posts** - Add comments on any post  
+- 🗑️ **Delete Comments** - Remove your own comments  
+- ✏️ **Update Comments** - Edit your own comments
+
 ## Tech Stack
 
 - **Frontend**: Next.js 15 (React 18)
-- **Backend**: Next.js API Routes
+- **Backend**: Next.js API Routes and Express
 - **Database**: MongoDB with Mongoose
 - **Styling**: Tailwind CSS
 - **Authentication**: JWT + bcryptjs
@@ -24,7 +33,7 @@ A modern, full-stack LinkedIn-like community platform built with Next.js, MongoD
 
 ### 1. Environment Variables
 
-Create a `.env.local` file in the root directory and add:
+Create a `.env` file in the root directory and add:
 
 ```env
 # MongoDB Connection String (get from MongoDB Atlas)
@@ -67,25 +76,6 @@ The application will be available at `http://localhost:3000`
 4. **View Feed**: See all posts from users in the home feed
 5. **View Profiles**: Click on user names to view their profiles and posts
 
-## Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── api/               # API routes
-│   │   ├── auth/          # Authentication endpoints
-│   │   ├── posts/         # Posts endpoints
-│   │   └── users/         # User endpoints
-│   ├── login/             # Login page
-│   ├── register/          # Registration page
-│   ├── profile/[id]/      # Dynamic profile page
-│   └── page.tsx           # Home page
-├── components/            # Reusable React components
-├── contexts/              # React contexts (Auth)
-├── lib/                   # Utility functions
-└── models/                # MongoDB models
-```
-
 ## API Endpoints
 
 - `POST /api/auth/register` - Register new user
@@ -94,35 +84,6 @@ src/
 - `POST /api/posts` - Create new post (authenticated)
 - `GET /api/users/[id]` - Get user profile and posts
 
-## Development
 
-- The app uses TypeScript for type safety
-- ESLint is configured for code quality
-- Tailwind CSS for styling with custom design system
-- Responsive design that works on mobile and desktop
 
-## Important Notes
 
-⚠️ **Before running the application:**
-
-1. **Set up MongoDB**: You need a MongoDB database. The easiest way is to use MongoDB Atlas (free tier available)
-2. **Update environment variables**: Replace the placeholder values in `.env.local` with your actual MongoDB connection string and JWT secret
-3. **Test the connection**: The app will show connection errors if MongoDB is not properly configured
-
-## Troubleshooting
-
-- **"Loading posts..." forever**: Check your MongoDB connection string in `.env.local`
-- **Input fields not visible**: This has been fixed in the latest version with improved styling
-- **Can't create posts**: Make sure you're logged in and have a valid JWT token
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-MIT License - feel free to use this project for learning or as a starting point for your own applications.
