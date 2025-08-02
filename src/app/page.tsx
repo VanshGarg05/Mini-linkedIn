@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Post from '@/components/Post';
 import CreatePost from '@/components/CreatePost';
@@ -19,7 +18,16 @@ interface PostData {
     email: string;
   };
   likes?: string[];
-  comments?: any[];
+  comments?: Array<{
+    _id: string;
+    content: string;
+    author: {
+      _id: string;
+      name: string;
+      email: string;
+    };
+    createdAt: string;
+  }>;
   createdAt: string;
 }
 
@@ -28,7 +36,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       const response = await fetch('/api/posts');
       if (response.ok) {
@@ -40,11 +48,11 @@ export default function Home() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [fetchPosts]);
 
   return (
     <>

@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     // Verify token
     try {
       verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }
@@ -59,9 +59,14 @@ export async function POST(request: NextRequest) {
       ).end(buffer);
     });
 
+    interface CloudinaryUploadResult {
+      secure_url: string;
+      public_id: string;
+    }
+
     return NextResponse.json({
-      url: (result as any).secure_url,
-      public_id: (result as any).public_id,
+      url: (result as CloudinaryUploadResult).secure_url,
+      public_id: (result as CloudinaryUploadResult).public_id,
     });
   } catch (error) {
     console.error('Upload error:', error);

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Image, X } from 'lucide-react';
+import { Image as ImageIcon, X } from 'lucide-react';
+import Image from 'next/image';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -149,9 +150,11 @@ const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
 
           {imagePreview && (
             <div className="mt-4 relative">
-              <img
+              <Image
                 src={imagePreview}
                 alt="Preview"
+                width={640}
+                height={256}
                 className="w-full max-h-64 object-cover rounded-xl"
               />
               <button
@@ -172,7 +175,7 @@ const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
                 className="flex items-center space-x-2 px-3 py-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
                 disabled={isUploading}
               >
-                <Image size={18} />
+                <ImageIcon size={18} />
                 <span className="text-sm font-medium">Add Image</span>
               </button>
               <input

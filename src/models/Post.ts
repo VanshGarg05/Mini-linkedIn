@@ -2,10 +2,10 @@ import mongoose, { Document, Model } from 'mongoose';
 import { IUser } from './User';
 
 export interface IComment {
-  _id: string;
+  _id?: string;
   content: string;
   author: IUser['_id'];
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export interface IPost extends Document {

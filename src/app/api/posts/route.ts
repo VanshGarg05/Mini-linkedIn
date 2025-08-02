@@ -9,7 +9,7 @@ export async function GET() {
   try {
     await dbConnect();
     // Ensure User model is registered
-    User;
+    void User;
     
     const posts = await Post.find()
       .populate('author', 'name email')
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }

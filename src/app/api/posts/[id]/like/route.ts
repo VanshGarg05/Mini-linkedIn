@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Post from '@/models/Post';
-import User from '@/models/User';
 import { verifyToken } from '@/lib/auth';
 
 export async function POST(
@@ -28,7 +27,7 @@ export async function POST(
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }
@@ -49,7 +48,7 @@ export async function POST(
 
     if (hasLiked) {
       // Unlike - remove the like
-      post.likes = post.likes.filter(like => like.toString() !== decoded.userId);
+      post.likes = post.likes.filter(like => (like as string).toString() !== decoded.userId);
       await post.save();
       return NextResponse.json({ 
         liked: false, 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { Edit, Save, X } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -38,7 +38,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const params = useParams();
 
-  const fetchProfileData = async () => {
+  const fetchProfileData = useCallback(async () => {
     try {
       const resolvedParams = await params;
       const response = await fetch(`/api/users/${resolvedParams.id}`);
@@ -56,11 +56,11 @@ export default function ProfilePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params, router]);
 
   useEffect(() => {
     fetchProfileData();
-  }, [params, router]);
+  }, [fetchProfileData]);
 
   const handleSaveBio = async () => {
     if (!user || !userProfile || user.id !== userProfile._id) return;

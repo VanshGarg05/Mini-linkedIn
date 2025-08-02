@@ -11,7 +11,7 @@ export async function DELETE(
 ) {
   try {
     await dbConnect();
-    User; // Ensure schema is registered
+    void User; // Ensure schema is registered
 
     const { id: postId, commentId } = await params;
 
@@ -30,7 +30,7 @@ export async function DELETE(
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }
@@ -48,7 +48,7 @@ export async function DELETE(
 
     // Find the comment
     const commentIndex = post.comments.findIndex(
-      (comment) => comment._id.toString() === commentId
+      (comment) => comment._id?.toString() === commentId
     );
 
     if (commentIndex === -1) {
@@ -61,7 +61,7 @@ export async function DELETE(
     const comment = post.comments[commentIndex];
 
     // Check if user is the author of the comment or the post owner
-    if (comment.author.toString() !== decoded.userId && post.author.toString() !== decoded.userId) {
+    if ((comment.author as string).toString() !== decoded.userId && (post.author as string).toString() !== decoded.userId) {
       return NextResponse.json(
         { error: 'You can only delete your own comments or comments on your posts' },
         { status: 403 }

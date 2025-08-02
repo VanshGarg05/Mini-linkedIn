@@ -66,7 +66,7 @@ export async function PUT(
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }

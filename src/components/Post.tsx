@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Heart, MessageCircle, Edit, Trash2, Save, X } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -292,9 +293,11 @@ const Post: React.FC<PostProps> = ({ post, onPostUpdated, onPostDeleted }) => {
         
         {post.image && (
           <div className="mb-4">
-            <img
+            <Image
               src={post.image}
               alt="Post image"
+              width={768}
+              height={384}
               className="w-full max-h-96 object-cover rounded-xl border border-gray-200 dark:border-gray-600"
             />
           </div>

@@ -11,7 +11,7 @@ export async function GET(
 ) {
   try {
     await dbConnect();
-    User; // Ensure schema is registered
+    void User; // Ensure schema is registered
 
     const { id: postId } = await params;
 
@@ -43,7 +43,7 @@ export async function POST(
 ) {
   try {
     await dbConnect();
-    User; // Ensure schema is registered
+    void User; // Ensure schema is registered
 
     const { id: postId } = await params;
 
@@ -62,7 +62,7 @@ export async function POST(
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }
@@ -88,13 +88,11 @@ export async function POST(
       );
     }
 
-    // Add comment to post
-    const newComment = {
+    // Add comment to post (let Mongoose handle timestamps)
+    post.comments.push({
       content: content.trim(),
       author: decoded.userId
-    };
-
-    post.comments.push(newComment);
+    });
     await post.save();
     
     // Populate the new comment's author and return

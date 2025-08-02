@@ -11,7 +11,7 @@ export async function DELETE(
 ) {
   try {
     await dbConnect();
-    User; // Ensure schema is registered
+    void User; // Ensure schema is registered
 
     const { id: postId } = await params;
 
@@ -30,7 +30,7 @@ export async function DELETE(
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }
@@ -47,7 +47,7 @@ export async function DELETE(
     }
 
     // Check if user is the author of the post
-    if (post.author.toString() !== decoded.userId) {
+    if ((post.author as string).toString() !== decoded.userId) {
       return NextResponse.json(
         { error: 'You can only delete your own posts' },
         { status: 403 }
@@ -74,7 +74,7 @@ export async function PUT(
 ) {
   try {
     await dbConnect();
-    User; // Ensure schema is registered
+    void User; // Ensure schema is registered
 
     const { id: postId } = await params;
 
@@ -93,7 +93,7 @@ export async function PUT(
     let decoded;
     try {
       decoded = verifyToken(token);
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'Invalid token' },
         { status: 401 }
@@ -120,7 +120,7 @@ export async function PUT(
     }
 
     // Check if user is the author of the post
-    if (post.author.toString() !== decoded.userId) {
+    if ((post.author as string).toString() !== decoded.userId) {
       return NextResponse.json(
         { error: 'You can only edit your own posts' },
         { status: 403 }
